@@ -1,0 +1,497 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikasa Cafe - Attack on Titan Themed</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background-color: #000000;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Navigation */
+        #main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        #main-nav.scrolled {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        #main-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 1rem 0;
+        }
+
+        #main-nav li {
+            margin: 0 1rem;
+        }
+
+        #main-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        #main-nav a:hover {
+            color: #ff0000;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: fixed;
+            top: 1rem;
+            right: 2rem;
+            z-index: 1001;
+        }
+
+        .search-bar {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            width: 300px;
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        /* Sections */
+        .full-height {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Hero section */
+        #home {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100vh;
+            background-image: url('/images/mkm.pmg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff00de;
+        }
+
+        /* About section */
+        #about {
+            background-color: #a41624;
+        }
+
+        /* Menu section */
+        #menu {
+            background-color: #f7870f;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .menu-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(216, 5, 5, 0.2);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact section */
+        #contact {
+            background-color: #7b7b1d;
+        }
+
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #contact-form input,
+        #contact-form textarea {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #contact-form button {
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact-form button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Neon text effect */
+        .neon-text {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+                0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #main-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #main-nav li {
+                margin: 0.5rem 0;
+            }
+
+            .neon-text {
+                font-size: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for food...">
+    </div>
+
+    <main>
+        <section id="home" class="full-height">
+            <div class="hero-image"></div>
+                <div class="hero-content">
+                    <h1 class="neon-text">Welcome to Mikasa Cafe</h1>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="full-height">
+            <h2>About Us</h2>
+            <p>Mikasa’s Journal – The Story of Mikasa Café  
+
+                After Eren’s death, I felt lost. The world we fought for finally existed, yet my heart remained trapped in the past. I couldn’t keep living in sorrow—I knew that wasn’t what he would have wanted. So, I chose to build something new, something warm. **Mikasa Café** wasn’t just a business; it was a way to honor him, to honor all of them.  
+                
+                Here, in the heart of Shiganshina, my home, I found purpose again. The mornings are filled with the comforting scent of fresh bread and roasted coffee. The soft hum of conversation and laughter now replaces the echoes of battle. Armin helps with the books, always lost in thought, sketching new ideas between orders. Jean complains about being overworked but never actually leaves the counter. Connie and Sasha’s recipes live on, their flavors bringing joy to those who stop by. Even Levi visits sometimes, though he insists he’s only here for the tea.  
+                
+                Every day, I wake up knowing this place is more than just a café—it’s a promise that we survived, that we’re still moving forward. And even though Eren is gone, a part of him will always be here, in the warmth of the sunrise through the windows, in the quiet strength that keeps me going.  
+                
+                This is home. This is Mikasa Café.</p>
+        </section>
+
+        <section id="menu" class="full-height">
+            <h2>Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="/images/colo.png" alt="Colossal Burger">
+                    <h3>Colossal Burger</h3>
+                    <p>$15</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_5wqefm5wqefm5wqe.jpeg" alt="Titan Slayer Ramen">
+                    <h3>Levi's Cleam Cut Salad</h3>
+                    <p>$12</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_6rh7mz6rh7mz6rh7.jpeg" alt="Wall Maria Pizza">
+                    <h3>Wall Maria Pizza</h3>
+                    <p>$18</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_hhnojwhhnojwhhno.jpeg" alt="Eren's Rage Curry">
+                    <h3>Eren's Cheese burst</h3>
+                    <p>$34</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_pdr8m2pdr8m2pdr8.jpeg" alt="Mikasa's Strength Smoothie">
+                    <h3> Sasha's Special alfredo</h3>
+                    <p>$12</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_t3uk1yt3uk1yt3uk.jpeg" alt="Levi's Clean Cut Salad">
+                    <h3>Juan's Rage Ramen</h3>
+                    <p>$23</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/Gemini_Generated_Image_vzrmlsvzrmlsvzrm.jpeg" alt="Levi's Clean Cut Salad">
+                    <h3>Mikasa's Love Portion</h3>
+                    <p>$45</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/m,k.png" alt="Levi's Clean Cut Salad">
+                    <h3>Hange green drink</h3>
+                    <p>$14</p>
+                </div>
+                <div class="menu-item">
+                    <img src="/images/uu.png" alt="Levi's Clean Cut Salad">
+                    <h3>Eren special</h3>
+                    <p>$19</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="full-height">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.full-height');
+            const navLinks = document.querySelectorAll('#main-nav a');
+            const searchBar = document.querySelector('.search-bar');
+
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Change navbar style on scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('main-nav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+
+                // Change background color based on section
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                        const color = getComputedStyle(section).backgroundColor;
+                        document.body.style.backgroundColor = color;
+                    }
+                });
+            });
+
+            // Form submission (you can replace this with your own backend logic)
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<!-- Previous head content remains the same until the style section -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikasa Cafe - Attack on Titan Themed</title>
+    <style>
+        /* Previous styles remain the same */
+        /* Add new footer styles */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-section h3 {
+            color: #ff00de;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff00de;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section {
+                align-items: center;
+            }
+        }
+    </style>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Previous body content remains the same until the end of main -->
+    
+    <!-- Add new footer section after the main content -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@mikasacafe.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Wall Maria Street</p>
+                <p>Shiganshina District, Paradise Island</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <p>Monday - Friday: 11:00 AM - 10:00 PM</p>
+                <p>Saturday - Sunday: 10:00 AM - 11:00 PM</p>
+                <p>Special Events & Reservations Available</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <p>Stay updated with our latest events and specials!</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mikasa Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Previous script section remains the same -->
+</body>
+</html>
